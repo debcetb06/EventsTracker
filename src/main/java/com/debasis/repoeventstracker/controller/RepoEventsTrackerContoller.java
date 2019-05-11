@@ -1,4 +1,4 @@
-package com.debasis.eventstracker.controller;
+package com.debasis.repoeventstracker.controller;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.debasis.eventstracker.exception.SystemException;
-import com.debasis.eventstracker.model.Event;
-import com.debasis.eventstracker.model.EventCriteria;
-import com.debasis.eventstracker.service.RepoEventsService;
+import com.debasis.repoeventstracker.exception.SystemException;
+import com.debasis.repoeventstracker.model.Event;
+import com.debasis.repoeventstracker.model.EventCriteria;
+import com.debasis.repoeventstracker.service.RepoEventsService;
 
 @RestController
 @RequestMapping("api/v1")

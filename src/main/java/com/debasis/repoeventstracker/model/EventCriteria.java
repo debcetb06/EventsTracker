@@ -1,4 +1,4 @@
-package com.debasis.eventstracker.model;
+package com.debasis.repoeventstracker.model;
 
 public class EventCriteria {
 

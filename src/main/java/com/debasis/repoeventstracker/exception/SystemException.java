@@ -1,4 +1,4 @@
-package com.debasis.eventstracker.exception;
+package com.debasis.repoeventstracker.exception;
 
 public class SystemException extends RuntimeException{
 

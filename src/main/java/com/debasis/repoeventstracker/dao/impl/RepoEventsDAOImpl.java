@@ -1,13 +1,13 @@
-package com.debasis.eventstracker.dao.impl;
+package com.debasis.repoeventstracker.dao.impl;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.debasis.eventstracker.constant.Constants;
-import com.debasis.eventstracker.dao.RepoEventsDAO;
-import com.debasis.eventstracker.exception.ServiceException;
+import com.debasis.repoeventstracker.constant.Constants;
+import com.debasis.repoeventstracker.dao.RepoEventsDAO;
+import com.debasis.repoeventstracker.exception.ServiceException;
 
 @Repository
 public class RepoEventsDAOImpl implements RepoEventsDAO {

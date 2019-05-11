@@ -1,10 +1,10 @@
-package com.debasis.eventstracker.common;
+package com.debasis.repoeventstracker.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.debasis.eventstracker.constant.Constants;
-import com.debasis.eventstracker.model.EventCriteria;
+import com.debasis.repoeventstracker.constant.Constants;
+import com.debasis.repoeventstracker.model.EventCriteria;
 
 /**
  *<P>This class is used to build the repo events URI 

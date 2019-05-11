@@ -1,4 +1,4 @@
-package com.debasis.eventstracker.exception;
+package com.debasis.repoeventstracker.exception;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
-import com.debasis.eventstracker.model.ApiErrorResponse;
+import com.debasis.repoeventstracker.model.ApiErrorResponse;
 
 @ControllerAdvice
 @RestController

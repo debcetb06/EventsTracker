@@ -1,4 +1,4 @@
-package com.debasis.eventstracker;
+package com.debasis.repoeventstracker;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

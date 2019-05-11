@@ -1,4 +1,4 @@
-package com.debasis.eventstracker.constant;
+package com.debasis.repoeventstracker.constant;
 
 /**
  * 

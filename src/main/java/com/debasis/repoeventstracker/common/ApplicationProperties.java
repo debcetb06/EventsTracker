@@ -1,4 +1,4 @@
-package com.debasis.eventstracker.common;
+package com.debasis.repoeventstracker.common;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
