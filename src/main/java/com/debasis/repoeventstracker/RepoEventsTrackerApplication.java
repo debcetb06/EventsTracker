@@ -4,6 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 public class RepoEventsTrackerApplication {
@@ -13,5 +15,10 @@ public class RepoEventsTrackerApplication {
 		SpringApplication.run(RepoEventsTrackerApplication.class, args);
 		LOGGER.info("RepoEventsTrackerApplication Started Successfuly...");
 	}
+	
+	 @Bean
+	   public RestTemplate getRestTemplate() {
+	      return new RestTemplate();
+	   }
 
 }

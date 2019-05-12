@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-
 import { getEvents, getEventTypes } from "../services/eventsService";
 import EventsTable from "../components/eventsTable";
+import Joi from "joi-browser";
+import { toast } from "react-toastify";
 
 class EventDetails extends Component {
   state = {
@@ -14,12 +15,47 @@ class EventDetails extends Component {
     },
     errors: {}
   };
+
+  schema = {
+    owner: Joi.string()
+      .required()
+      .label("Owner"),
+    repo: Joi.string()
+      .required()
+      .label("Repo")
+  };
+
+  validate = () => {
+    const options = {
+      abortEarly: false,
+      allowUnknown: true
+    };
+    const { error } = Joi.validate(this.state.event, this.schema, options);
+    console.log(error);
+
+    if (!error) return null;
+    const errors = {};
+    for (let item of error.details) errors[item.path[0]] = item.message;
+    return errors;
+  };
+
   handleSubmit = async e => {
     e.preventDefault();
-    const { owner, repo, eventType } = this.state.event;
-    const { data: events } = await getEvents(owner, repo, eventType);
-    console.log(events);
-    this.setState({ events: events });
+    const errors = this.validate();
+    this.setState({ errors: errors || {} });
+    if (!errors) {
+      try {
+        const { owner, repo, eventType } = this.state.event;
+        const { data: events } = await getEvents(owner, repo, eventType);
+        console.log(events);
+        this.setState({ events: events });
+      } catch (ex) {
+        console.log(ex.response.status);
+        if (ex.response && ex.response.status === 404) {
+          toast.error("No events avaiable for selected Repo.");
+        }
+      }
+    }
   };
 
   handleChange = e => {
@@ -50,6 +86,11 @@ class EventDetails extends Component {
               name="owner"
               className="form-control"
             />
+            {this.state.errors.owner && (
+              <div className="alert alert-danger">
+                {this.state.errors.owner}
+              </div>
+            )}
           </div>
           <div className="form-group">
             <label htmlFor="repo">Repo</label>
@@ -61,6 +102,9 @@ class EventDetails extends Component {
               name="repo"
               className="form-control"
             />
+            {this.state.errors.repo && (
+              <div className="alert alert-danger">{this.state.errors.repo}</div>
+            )}
           </div>
 
           <div className="form-group">
