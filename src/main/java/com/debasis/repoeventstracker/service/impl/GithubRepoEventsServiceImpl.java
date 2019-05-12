@@ -14,6 +14,7 @@ import com.debasis.repoeventstracker.dao.RepoEventsDAO;
 import com.debasis.repoeventstracker.exception.SystemException;
 import com.debasis.repoeventstracker.model.Event;
 import com.debasis.repoeventstracker.model.EventCriteria;
+import com.debasis.repoeventstracker.model.EventType;
 import com.debasis.repoeventstracker.service.RepoEventsService;
 
 /**
@@ -43,7 +44,7 @@ public class GithubRepoEventsServiceImpl implements RepoEventsService {
 	}
 	
 	@Override
-	public List<String> getRepoEventTypes() throws SystemException{
+	public List<EventType> getRepoEventTypes() throws SystemException{
 		return repoEventsDAO.getEventTypes();
 	}
 

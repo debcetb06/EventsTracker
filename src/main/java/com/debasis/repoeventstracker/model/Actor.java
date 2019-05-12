@@ -1,10 +1,14 @@
 package com.debasis.repoeventstracker.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Actor {
 	
 	private long id;
 	private String login;
+	@JsonProperty("display_login")
 	private String displayLogin;
+	@JsonProperty("avatar_url")
 	private String avatarUrl;
 	public long getId() {
 		return id;
@@ -30,8 +34,4 @@ public class Actor {
 	public void setAvatarUrl(String avatarUrl) {
 		this.avatarUrl = avatarUrl;
 	}
-	
-	
-	
-    	
 }

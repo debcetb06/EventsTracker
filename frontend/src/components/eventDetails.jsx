@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 
-import { getEvents } from "../services/eventsService";
+import { getEvents, getEventTypes } from "../services/eventsService";
+import EventsTable from "../components/eventsTable";
 
 class EventDetails extends Component {
   state = {
+    eventTypes: [],
     events: [],
     event: {
       owner: "",
@@ -14,9 +16,10 @@ class EventDetails extends Component {
   };
   handleSubmit = async e => {
     e.preventDefault();
-    const events = await getEvents();
-    this.setState({ events: events });
+    const { owner, repo, eventType } = this.state.event;
+    const { data: events } = await getEvents(owner, repo, eventType);
     console.log(events);
+    this.setState({ events: events });
   };
 
   handleChange = e => {
@@ -25,12 +28,18 @@ class EventDetails extends Component {
     this.setState({ event });
   };
 
+  async componentDidMount() {
+    const { data: eventTypes } = await getEventTypes();
+    this.setState({ eventTypes: eventTypes });
+  }
+
   render() {
-    const { event } = this.state;
+    const { event, events, eventTypes } = this.state;
+
     return (
       <div>
         <h2>Event</h2>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="pb-3">
           <div className="form-group">
             <label htmlFor="owner">Owner</label>
             <input
@@ -53,19 +62,27 @@ class EventDetails extends Component {
               className="form-control"
             />
           </div>
+
           <div className="form-group">
             <label htmlFor="eventType">Event Type</label>
-            <input
-              value={event.eventType}
-              onChange={this.handleChange}
-              id="eventType"
-              type="text"
+            <select
               name="eventType"
+              id="eventType"
               className="form-control"
-            />
+              onChange={this.handleChange}
+            >
+              <option value="" />
+              {eventTypes.map(type => (
+                <option key={type.id} value={type.eventType}>
+                  {type.eventType}
+                </option>
+              ))}
+            </select>
           </div>
+
           <button className="btn btn-primary">Search</button>
         </form>
+        <EventsTable events={events} />
       </div>
     );
   }
