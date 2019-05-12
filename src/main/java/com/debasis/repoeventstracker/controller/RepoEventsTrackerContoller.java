@@ -3,11 +3,15 @@ package com.debasis.repoeventstracker.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +24,15 @@ import com.debasis.repoeventstracker.model.EventCriteria;
 import com.debasis.repoeventstracker.model.EventType;
 import com.debasis.repoeventstracker.service.RepoEventsService;
 
+
+/**
+ * <p>This RepoEventsTrackerContoller API provides the details of events from the repositories</p>
+ * @author Debasis Panda
+ *
+ */
 @RestController
 @RequestMapping("api/v1")
+@Validated
 public class RepoEventsTrackerContoller {
 
 	@Autowired
@@ -29,28 +40,44 @@ public class RepoEventsTrackerContoller {
 
 	private static final Logger LOGGER = LogManager.getLogger(RepoEventsTrackerContoller.class);
 
+	/**
+	 * <p>events API method is used to provide the details events happened.
+	 * @param owner - owner name will be validated as part of request parameter or else 400 bad request will be thrown
+	 * @param repo  - repo name will be validated as part of request parameter or else 400 bad request will be thrown
+	 * @param eventType - eventType parameter will be used as part of filter criteria to to filter the events
+	 * @return list of events if status is 200,
+	 *                                        or else provide 400, 500 , 404 based on exception.
+	 */
 	@GetMapping(value = "/events")
-	public ResponseEntity<List<Event>> events(@RequestParam(name = "owner", required = true) String owner,
-			@RequestParam(name = "repo", required = true) String repo,
-			@RequestParam(name = "eventType", required = false) String eventType) {
+	public ResponseEntity<List<Event>> events(
+								@Valid @NotBlank @RequestParam(name = "owner", required = true) String owner,
+								@Valid @NotBlank @RequestParam(name = "repo", required = true) String repo,
+								@RequestParam(name = "eventType", required = false) String eventType) {
 		List<Event> events = null;
 		try {
 			EventCriteria eventCriteria = new EventCriteria();
 			eventCriteria.setOwnerName(owner);
 			eventCriteria.setRepo(repo);
+			
 			if (eventType == null || eventType.isEmpty()) {
 				events = repoEventsService.getRepoEvents(eventCriteria);
 			} else {
 				events = repoEventsService.getRepoEvents(eventCriteria).stream()
 						.filter(event -> event.getType().equals(eventType)).collect(Collectors.toList());
 			}
-		} catch (ResourceNotFoundException rs) {
+		} 
+		/*Rest service response will be 404, resource not found*/
+		catch (ResourceNotFoundException rs) {
 			LOGGER.error("Resource not found", rs);
 			throw rs;
-		} catch (SystemException se) {
+		} 
+		/*Rest service response will be 500, Internal server occurred*/
+		catch (SystemException se) {
 			LOGGER.error("System error occured", se);
 			throw se;
-		} catch (Throwable th) {
+		} 
+		/*Rest service response will be 500, Internal server occurred*/
+		catch (Throwable th) {
 			LOGGER.error("System error occured", th);
 			throw new SystemException("System error occured", th);
 		}
@@ -58,6 +85,10 @@ public class RepoEventsTrackerContoller {
 		return new ResponseEntity<List<Event>>(events, HttpStatus.OK);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	@GetMapping(value = "/eventTypes")
 	public ResponseEntity<List<EventType>> eventTypes() {
 		try {
