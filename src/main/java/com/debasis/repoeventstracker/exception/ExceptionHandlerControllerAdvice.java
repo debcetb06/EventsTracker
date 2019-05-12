@@ -14,18 +14,29 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.debasis.repoeventstracker.model.ApiErrorResponse;
 
+/**
+ * <p>Class:ExceptionHandlerControllerAdvice is global exception handler to handle api
+ * @author Debasis Panda
+ *
+ */
 @ControllerAdvice
 @RestController
 public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHandler {
 
+	/**
+	 * <p>Class:ExceptionHandlerControllerAdvice and Method:handleMissingServletRequestParameter is to send 400 bad request</p>
+	 */
 	@Override
 	protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		String error = ex.getParameterName() + " parameter is missing.";
+		String error =  new StringBuilder(ex.getParameterName()).append(" parameter is missing.").toString();
 		ApiErrorResponse errorDetails = new ApiErrorResponse(new Date(), error, request.getDescription(false));
 		return new ResponseEntity<Object>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * <p>Class:ExceptionHandlerControllerAdvice and handleResourceNotFoundException is to send 404 resource not found</p>
+	 */
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public final ResponseEntity<ApiErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex,
 			WebRequest request) {
@@ -34,6 +45,9 @@ public class ExceptionHandlerControllerAdvice extends ResponseEntityExceptionHan
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
 
+	/**
+	 * <p>Class:ExceptionHandlerControllerAdvice and handleSystemException is to send 500 internal server error</p>
+	 */
 	@ExceptionHandler(SystemException.class)
 	public final ResponseEntity<ApiErrorResponse> handleSystemException(SystemException ex, WebRequest request) {
 		ApiErrorResponse errorDetails = new ApiErrorResponse(new Date(), ex.getMessage(),

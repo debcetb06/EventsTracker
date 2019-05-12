@@ -86,8 +86,8 @@ public class RepoEventsTrackerContoller {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * <p>eventTypes</p> will provide event types
+	 * @return list of event Types
 	 */
 	@GetMapping(value = "/eventTypes")
 	public ResponseEntity<List<EventType>> eventTypes() {
