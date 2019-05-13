@@ -66,17 +66,17 @@ public class RepoEventsTrackerContoller {
 						.filter(event -> event.getType().equals(eventType)).collect(Collectors.toList());
 			}
 		} 
-		/*Rest service response will be 404, resource not found*/
+		/*Below exception will be catched by Global exception handler <class>ExceptionHandlerControllerAdvice</class> and Rest service response will be 404, resource not found*/
 		catch (ResourceNotFoundException rs) {
 			LOGGER.error("Resource not found", rs);
 			throw rs;
 		} 
-		/*Rest service response will be 500, Internal server occurred*/
+		/*Below exception will be catched by Global exception handler <class>ExceptionHandlerControllerAdvice</class> and Rest service response will be 500, Internal server occurred*/
 		catch (SystemException se) {
 			LOGGER.error("System error occured", se);
 			throw se;
 		} 
-		/*Rest service response will be 500, Internal server occurred*/
+		/*Below exception will be catched by Global exception handler <class>ExceptionHandlerControllerAdvice</class> and Rest service response will be 500, Internal server occurred*/
 		catch (Throwable th) {
 			LOGGER.error("System error occured", th);
 			throw new SystemException("System error occured", th);

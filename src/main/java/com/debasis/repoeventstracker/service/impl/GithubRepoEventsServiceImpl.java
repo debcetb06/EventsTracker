@@ -2,6 +2,8 @@ package com.debasis.repoeventstracker.service.impl;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -11,6 +13,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.debasis.repoeventstracker.common.UriBuilder;
+import com.debasis.repoeventstracker.controller.RepoEventsTrackerContoller;
 import com.debasis.repoeventstracker.dao.RepoEventsDAO;
 import com.debasis.repoeventstracker.exception.ResourceNotFoundException;
 import com.debasis.repoeventstracker.exception.SystemException;
@@ -30,6 +33,8 @@ import com.debasis.repoeventstracker.service.RepoEventsService;
  */
 @Service("repoEventsService")
 public class GithubRepoEventsServiceImpl implements RepoEventsService {
+	
+	private static final Logger LOGGER = LogManager.getLogger(RepoEventsTrackerContoller.class);
 
 	@Autowired
 	private UriBuilder uriBuilder;
@@ -51,6 +56,7 @@ public class GithubRepoEventsServiceImpl implements RepoEventsService {
 			eventsList = events.getBody();
 		} catch (HttpClientErrorException e) {
 			if (e.getRawStatusCode() == 404) {
+				LOGGER.error("Repo Events are not avaiable", e);
 				throw new ResourceNotFoundException("Resource Not found");
 			}
 		}
