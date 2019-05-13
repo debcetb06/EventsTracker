@@ -44,8 +44,6 @@ public class GithubRepoEventsServiceImpl implements RepoEventsService {
 		List<Event> eventsList = null;
 		try {
 			ResponseEntity<List<Event>> events = null;
-			//RestTemplate restTemplate = new RestTemplate();
-
 			events = restTemplate.exchange(uriBuilder.getRepoEventsURI(eventCriteria), HttpMethod.GET, null,
 					new ParameterizedTypeReference<List<Event>>() {
 					});
