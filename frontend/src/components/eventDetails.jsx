@@ -25,14 +25,13 @@ class EventDetails extends Component {
       .label("Repo")
   };
 
+  //This method uses Joi validation framwork to validate the input filelds
   validate = () => {
     const options = {
       abortEarly: false,
       allowUnknown: true
     };
     const { error } = Joi.validate(this.state.event, this.schema, options);
-    console.log(error);
-
     if (!error) return null;
     const errors = {};
     for (let item of error.details) errors[item.path[0]] = item.message;
@@ -42,12 +41,13 @@ class EventDetails extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     const errors = this.validate();
-    this.setState({ errors: errors || {} });
+    let events = { ...this.state.events };
+    events = [];
+    this.setState({ errors: errors || {}, events: events });
     if (!errors) {
       try {
         const { owner, repo, eventType } = this.state.event;
         const { data: events } = await getEvents(owner, repo, eventType);
-        console.log(events);
         this.setState({ events: events });
       } catch (ex) {
         console.log(ex.response.status);
