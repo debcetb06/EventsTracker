@@ -15,7 +15,7 @@ public class RepoEventsTrackerApplication {
 	public static void main(String[] args) {
 		final Logger LOGGER = LogManager.getLogger(RepoEventsTrackerApplication.class);
 		SpringApplication.run(RepoEventsTrackerApplication.class, args);
-		LOGGER.info("RepoEventsTrackerApplication Started Successfuly...");
+		LOGGER.info(" RepoEventsTrackerApplication Started Successfuly...");
 	}
 	
 	 @Bean

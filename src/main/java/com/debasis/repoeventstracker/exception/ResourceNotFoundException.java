@@ -1,5 +1,10 @@
 package com.debasis.repoeventstracker.exception;
 
+/**
+ * <p>class ResourceNotFoundException will be  thrown if there are no details avaiable for the request
+ * @author Debasis Panda
+ *
+ */
 public class ResourceNotFoundException extends RuntimeException{
 
 	/**

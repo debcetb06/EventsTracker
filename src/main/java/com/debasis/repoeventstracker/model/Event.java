@@ -3,7 +3,6 @@ package com.debasis.repoeventstracker.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Event {
-
 	private String id;
 	private String type;
 	private boolean isPublic;

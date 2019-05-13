@@ -1,5 +1,10 @@
 package com.debasis.repoeventstracker.exception;
 
+/**
+ * This is the top layer exception which will be handled in controller level
+ * @author Debasis panda
+ *
+ */
 public class SystemException extends RuntimeException{
 
 	/**

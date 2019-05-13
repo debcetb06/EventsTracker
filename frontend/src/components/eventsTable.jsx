@@ -4,6 +4,8 @@ import Table from "./common/table";
 import Avatar from "react-avatar";
 
 class EventsTable extends Component {
+  /*Any new column can be added as part of below columns[] and that will be displayed result grid automatically
+   */
   columns = [
     { path: "id", label: "ID" },
     { path: "type", label: "Type" },

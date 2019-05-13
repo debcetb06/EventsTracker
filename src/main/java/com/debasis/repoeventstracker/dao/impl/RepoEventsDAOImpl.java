@@ -15,6 +15,9 @@ import com.debasis.repoeventstracker.model.EventType;
 @Repository
 public class RepoEventsDAOImpl implements RepoEventsDAO {
 
+	/**
+	 * Event Types are hard coded now but once DB part is implemented this can be moved to DB.
+	 */
 	@Override
 	public List<EventType> getEventTypes() throws ServiceException {
 		List<EventType> eventTypes = Arrays.asList(Constants.EVENT_TYPES).stream().map(eventType -> new EventType(new Random().nextInt(), eventType))

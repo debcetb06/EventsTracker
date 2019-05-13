@@ -20,9 +20,10 @@ import com.debasis.repoeventstracker.model.EventType;
 import com.debasis.repoeventstracker.service.RepoEventsService;
 
 /**
- * <P>
- * GithubRepoEventTrackerImpl is implementation of getting events from GitHub
- * Repositories
+ * <p>
+ * class GithubRepoEventTrackerImpl is implementation of getting events from
+ * GitHub Repositories
+ * </p>
  * 
  * @author Debasis Panda
  *
@@ -35,7 +36,7 @@ public class GithubRepoEventsServiceImpl implements RepoEventsService {
 
 	@Autowired
 	RepoEventsDAO repoEventsDAO;
-	
+
 	@Autowired
 	private RestTemplate restTemplate;
 
@@ -49,7 +50,7 @@ public class GithubRepoEventsServiceImpl implements RepoEventsService {
 					});
 			eventsList = events.getBody();
 		} catch (HttpClientErrorException e) {
-			if(e.getRawStatusCode() == 404) {
+			if (e.getRawStatusCode() == 404) {
 				throw new ResourceNotFoundException("Resource Not found");
 			}
 		}

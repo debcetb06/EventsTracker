@@ -16,9 +16,9 @@ public final class Constants {
 	/**
 	 * Events Types are available in below link.
 	 * <p>
-	 *    1.Types are hard coded now but this can be stored in DB as master data.
+	 *    1.Event Types are hard coded now but this can be stored in DB as master data.
 	 *    2.Elastic cache can be used to for faster retrieval</p>
-	 * Link: https://developer.github.com/v3/activity/events/types/
+	 *  <p>Link for event types https://developer.github.com/v3/activity/events/types/</p>
 	 */
 	public static String[] EVENT_TYPES = new String[] { "CheckRunEvent", "CheckSuiteEvent", "CommitCommentEvent",
 			"ContentReferenceEvent", "CreateEvent", "DeleteEvent", "DeployKeyEvent", "DeploymentEvent",

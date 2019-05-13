@@ -1,5 +1,10 @@
 package com.debasis.repoeventstracker.exception;
 
+/**
+ * <p>class ServiceException will be thrown only from Service layer
+ * @author Debasis Panda
+ *
+ */
 public class ServiceException extends RuntimeException{
 	/**
 	 * 

@@ -5,6 +5,7 @@ import Joi from "joi-browser";
 import { toast } from "react-toastify";
 
 class EventDetails extends Component {
+  /*EventDetail component maintains the centralized state*/
   state = {
     eventTypes: [],
     events: [],
@@ -16,6 +17,7 @@ class EventDetails extends Component {
     errors: {}
   };
 
+  /*Event Criteria Joi Schema validatiion */
   schema = {
     owner: Joi.string()
       .required()
@@ -25,7 +27,7 @@ class EventDetails extends Component {
       .label("Repo")
   };
 
-  //This method uses Joi validation framwork to validate the input filelds
+  /*This method uses Joi validation framwork to validate the input filelds*/
   validate = () => {
     const options = {
       abortEarly: false,
@@ -38,11 +40,12 @@ class EventDetails extends Component {
     return errors;
   };
 
-  //This method will submitthe form if there are no errors
-  handleSubmit = async e => {
+  /*This method will submit the form if there are no errors, and used Async and await to handle promise
+    React Toast is used to dispaly the error as Toast message.
+  */
+  handleSubmit = async () => {
     e.preventDefault();
     const errors = this.validate();
-
     let events = { ...this.state.events };
     if (errors) {
       events = [];
@@ -69,6 +72,7 @@ class EventDetails extends Component {
     this.setState({ event });
   };
 
+  /* ComponentDidMount life cyscle is used to get eventTypes from backend and prepaulate event types drop down*/
   async componentDidMount() {
     const { data: eventTypes } = await getEventTypes();
     this.setState({ eventTypes: eventTypes });
