@@ -43,7 +43,7 @@ class EventDetails extends Component {
   /*This method will submit the form if there are no errors, and used Async and await to handle promise
     React Toast is used to dispaly the error as Toast message.
   */
-  handleSubmit = async () => {
+  handleSubmit = async e => {
     e.preventDefault();
     const errors = this.validate();
     let events = { ...this.state.events };
@@ -58,7 +58,6 @@ class EventDetails extends Component {
         const { data: events } = await getEvents(owner, repo, eventType);
         this.setState({ events: events });
       } catch (ex) {
-        console.log(ex.response.status);
         if (ex.response && ex.response.status === 404) {
           toast.error("No events avaiable for selected Repo.");
         }
