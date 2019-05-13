@@ -38,12 +38,17 @@ class EventDetails extends Component {
     return errors;
   };
 
+  //This method will submitthe form if there are no errors
   handleSubmit = async e => {
     e.preventDefault();
     const errors = this.validate();
+
     let events = { ...this.state.events };
-    events = [];
-    this.setState({ errors: errors || {}, events: events });
+    if (errors) {
+      events = [];
+      this.setState({ events: events });
+    }
+    this.setState({ errors: errors || {} });
     if (!errors) {
       try {
         const { owner, repo, eventType } = this.state.event;

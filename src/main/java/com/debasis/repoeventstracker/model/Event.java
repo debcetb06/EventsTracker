@@ -10,6 +10,7 @@ public class Event {
 	@JsonProperty("created_at")
 	private String createdDate;
 	private Actor actor;
+	private Repo repo;
 	public Actor getActor() {
 		return actor;
 	}
@@ -39,6 +40,12 @@ public class Event {
 	}
 	public String getCreatedDate() {
 		return createdDate;
+	}
+	public Repo getRepo() {
+		return repo;
+	}
+	public void setRepo(Repo repo) {
+		this.repo = repo;
 	}
 	
 }

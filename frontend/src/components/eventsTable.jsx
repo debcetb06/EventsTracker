@@ -7,6 +7,7 @@ class EventsTable extends Component {
   columns = [
     { path: "id", label: "ID" },
     { path: "type", label: "Type" },
+    { path: "repo.name", label: "Repo Name" },
     { path: "created_at", label: "Created Date" },
     { path: "actor.display_login", label: "Name" },
     {
